@@ -4,5 +4,12 @@
   become_user: root
   hosts: web-srv
   gather_facts: false
-  roles:
-    - role: zabbix_agent
+  tasks:
+   apt:
+     name: zabbix-agent
+     state: present
+     update_cache: yes
+   systemd:
+     name: zabbix-agent
+     state: restarted
+     enabled: yes
