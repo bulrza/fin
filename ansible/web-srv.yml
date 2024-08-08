@@ -5,4 +5,4 @@
   hosts: web-srv
   gather_facts: false
   roles:
-    - role: zabbix-agent
+    - role: zabbix_agent
