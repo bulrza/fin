@@ -1,0 +1,8 @@
+- name: Deploy zabbix agent
+  remote_user: ubuntu
+  become: true
+  become_user: root
+  hosts: web-srv
+  gather_facts: false
+  roles:
+    - role: zabbix-agent

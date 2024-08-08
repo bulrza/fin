@@ -75,6 +75,7 @@ resource "yandex_compute_instance" "nginx_a" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet_a.id
+    ip_address = "192.168.10.10"
     security_group_ids = [yandex_vpc_security_group.sg_internal.id,yandex_vpc_security_group.sg_nginx.id]
     nat            = true
   }
@@ -109,6 +110,7 @@ resource "yandex_compute_instance" "nginx_b" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet_b.id
+    ip_address = "192.168.20.10"
     security_group_ids = [yandex_vpc_security_group.sg_internal.id,yandex_vpc_security_group.sg_nginx.id]
     nat            = true
   }
@@ -143,6 +145,7 @@ resource "yandex_compute_instance" "bastion_ansible" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet_b.id
+    ip_address = "192.168.20.11"
     security_group_ids = [yandex_vpc_security_group.sg_internal.id,yandex_vpc_security_group.sg_bastion_ansible.id]
     nat            = true
   }
@@ -177,6 +180,7 @@ resource "yandex_compute_instance" "zabbix_vm" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet_b.id
+    ip_address = "192.168.20.12"
     security_group_ids = [yandex_vpc_security_group.sg_internal.id,yandex_vpc_security_group.sg_zabbix.id]
     nat            = true
   }
@@ -211,6 +215,7 @@ resource "yandex_compute_instance" "elastic_kibana" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet_b.id
+    ip_address = "192.168.20.13"
     security_group_ids = [yandex_vpc_security_group.sg_internal.id,yandex_vpc_security_group.sg_elastic_kibana.id]
     nat            = true
   }

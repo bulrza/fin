@@ -19,6 +19,16 @@ write_files:
       apt -y install software-properties-common
       add-apt-repository --yes --update ppa:ansible/ansible
       apt -y install ansible
+      apt -y install jq
+    defer: true
+  - path: "/usr/local/etc/setup.sh"
+    permissions: "755"
+    content: |
+      #!/bin/bash
+
+      for url in $(curl -s https://api.github.com/repos/bulrza/fin/contents/ansible | jq -r '.[] | select(.type=="file") | .download_url'); do wget $url; done
+      ansible-playbook web-srv.yml -i inventory
     defer: true
 runcmd:
   - ["/usr/local/etc/startup.sh"]
+  - ["/usr/local/etc/setup.sh"]

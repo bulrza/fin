@@ -3,7 +3,7 @@ output "nginx-a_ip_adress" {
 }
 
 output "nginx-b_ip_adress" {
-  value = yandex_compute_instance.nginx_a.network_interface[0].ip_address
+  value = yandex_compute_instance.nginx_b.network_interface[0].ip_address
 }
 
 output "bastion-ansible_nat_ip_adress" {
