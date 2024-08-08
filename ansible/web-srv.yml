@@ -1,3 +1,5 @@
+---
+
 - name: Deploy zabbix agent
   remote_user: ubuntu
   become: true
@@ -5,11 +7,14 @@
   hosts: web-srv
   gather_facts: false
   tasks:
-   apt:
-     name: zabbix-agent
-     state: present
-     update_cache: yes
-   systemd:
-     name: zabbix-agent
-     state: restarted
-     enabled: yes
+    - name: Install Zabbix Agent
+      apt:
+        name: zabbix-agent
+        state: present
+        update_cache: yes
+
+    - name: Restart Zabbix Agent
+      systemd:
+        name: zabbix-agent
+        state: restarted
+        enabled: yes
