@@ -6,15 +6,5 @@
   become_user: root
   hosts: web-srv
   gather_facts: false
-  tasks:
-    - name: Install Zabbix Agent
-      apt:
-        name: zabbix-agent
-        state: present
-        update_cache: yes
-
-    - name: Restart Zabbix Agent
-      systemd:
-        name: zabbix-agent
-        state: restarted
-        enabled: yes
+  roles:
+    - role: zabbix_agent
