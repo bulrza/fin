@@ -1,18 +1,18 @@
-[nginx-a]
-192.168.10.10
+[nginx_a]
+nginx-a.ru-central1-a.internal
 
-[nginx-b]
-192.168.20.10
+[nginx_b]
+nginx-b.ru-central1-b.internal
 
-[bastion-ansible]
-192.168.20.11
+[bastion_ansible]
+bastion-ansible.ru-central1-b.internal
 
 [zabbix]
-192.168.20.12
+zabbix.ru-central1-b.internal
 
-[elastic-kibana]
-192.168.20.13
+[elastic_kibana]
+elastic-kibana.ru-central1-b.internal
 
-[web-srv:children]
-nginx-a
-nginx-b
+[web_srv:children]
+nginx_a
+nginx_b

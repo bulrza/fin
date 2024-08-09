@@ -1,0 +1,20 @@
+- name: Copy nginx site conf
+  copy:
+    src: default
+    dest: /etc/nginx/sites-available/default
+
+- name: access.log permissions
+  file:
+    path: /var/log/nginx/access.log
+    state: touch
+    mode: o+r
+
+- name: Stop service nginx
+  service:
+    name: nginx
+    state: stopped
+
+- name: Start service nginx
+  service:
+    name: nginx
+    state: started

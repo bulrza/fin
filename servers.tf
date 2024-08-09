@@ -55,6 +55,7 @@ resource "yandex_compute_disk" "elastic_kibana_boot_disk" {
 resource "yandex_compute_instance" "nginx_a" {
   
   name                      = "nginx-a"
+  hostname                  = "nginx-a"
   allow_stopping_for_update = true
   platform_id               = "standard-v3"
   zone                      = "ru-central1-a"
@@ -90,6 +91,7 @@ resource "yandex_compute_instance" "nginx_a" {
 resource "yandex_compute_instance" "nginx_b" {
   
   name                      = "nginx-b"
+  hostname                  = "nginx-b"
   allow_stopping_for_update = true
   platform_id               = "standard-v3"
   zone                      = "ru-central1-b"
@@ -125,6 +127,7 @@ resource "yandex_compute_instance" "nginx_b" {
 resource "yandex_compute_instance" "bastion_ansible" {
   
   name                      = "bastion-ansible"
+  hostname                  = "bastion-ansible"
   allow_stopping_for_update = true
   platform_id               = "standard-v3"
   zone                      = "ru-central1-b"
@@ -160,6 +163,7 @@ resource "yandex_compute_instance" "bastion_ansible" {
 resource "yandex_compute_instance" "zabbix_vm" {
   
   name                      = "zabbix"
+  hostname                  = "zabbix"
   allow_stopping_for_update = true
   platform_id               = "standard-v3"
   zone                      = "ru-central1-b"
@@ -195,6 +199,7 @@ resource "yandex_compute_instance" "zabbix_vm" {
 resource "yandex_compute_instance" "elastic_kibana" {
   
   name                      = "elastic-kibana"
+  hostname                  = "elastic-kibana"
   allow_stopping_for_update = true
   platform_id               = "standard-v3"
   zone                      = "ru-central1-b"

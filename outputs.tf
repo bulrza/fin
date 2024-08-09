@@ -2,6 +2,10 @@ output "nginx-a_ip_adress" {
   value = yandex_compute_instance.nginx_a.network_interface[0].ip_address
 }
 
+output "nginx-a_fqdn" {
+  value = yandex_compute_instance.nginx_a.fqdn
+}
+
 output "nginx-b_ip_adress" {
   value = yandex_compute_instance.nginx_b.network_interface[0].ip_address
 }
