@@ -3,7 +3,7 @@ resource "yandex_compute_snapshot_schedule" "default" {
   description    = "once a day for one week"
  
     schedule_policy {
-    expression = "0 19 ? * *"
+    expression = "0 20 ? * *"
   }
 
   snapshot_count = 7
