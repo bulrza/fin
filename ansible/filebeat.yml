@@ -1,0 +1,29 @@
+---
+- name: Filebeat
+  hosts: web_srv
+  become: true  
+  vars:
+    kibana_addr: kibana-vm.ru-central1.internal:5601
+    elastic_addr: elastic-vm.ru-central1.internal:9200
+  tasks:
+  - name: install filebeat
+    apt:
+      deb: "https://mirror.yandex.ru/mirrors/elastic/7/pool/main/f/filebeat/filebeat-7.17.14-amd64.deb"
+
+  - name: filebeat cfg
+    template:
+      src: /home/ubuntu/ansible/filebeat.j2
+      dest: /etc/filebeat/filebeat.yml
+
+  - name: daemon_reload
+    systemd:
+      daemon_reload: true
+
+  - name: modules enable
+    shell: sudo filebeat modules enable system nginx
+
+  - name: service enable
+    service:
+      name: filebeat
+      state: restarted
+      enabled: yes

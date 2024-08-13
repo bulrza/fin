@@ -1,0 +1,24 @@
+---
+- name: Elasticsearch
+  hosts: elastic
+  become: true
+
+  tasks:
+  - name: install elasticsearch
+    apt:
+      deb: "https://mirror.yandex.ru/mirrors/elastic/7/pool/main/e/elasticsearch/elasticsearch-7.17.14-amd64.deb"
+
+  - name: elasticsearch conf
+    copy:
+      src: /home/ubuntu/ansible/elastic_conf.yml
+      dest: /etc/elasticsearch/elasticsearch.yml
+
+  - name: daemon_reload
+    systemd:
+      daemon_reload: true
+
+  - name: service enable
+    service:
+      name: elasticsearch
+      state: restarted
+      enabled: yes

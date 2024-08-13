@@ -1,0 +1,29 @@
+---
+- name: Zabbix Agent Install
+  hosts: web_srv,log #all
+  become: true
+  vars:
+    zabbix_server: zabbix.ru-central1.internal
+  tasks:
+    - name: apt
+      apt:
+        name: zabbix-agent
+        state: present
+
+    - name: log dir
+      command: mkdir -p /var/log/zabbix/
+
+    - name: rights
+      command: chown zabbix /var/log/zabbix/
+
+    - name: copy template
+      template:
+        src: /home/ubuntu/ansible/zabbix_agentd.conf.j2
+        dest: /etc/zabbix/zabbix_agentd.conf
+      notify: restart zabbix-agent
+
+  handlers:
+    - name: restart zabbix-agent
+      service:
+        name: zabbix-agent
+        state: restarted

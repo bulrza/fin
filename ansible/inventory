@@ -1,18 +1,25 @@
 [nginx_a]
-nginx-a.ru-central1-a.internal
+nginx-a.ru-central1.internal
 
 [nginx_b]
-nginx-b.ru-central1-b.internal
+nginx-b.ru-central1.internal
 
 [bastion_ansible]
-bastion-ansible.ru-central1-b.internal
+bastion-ansible.ru-central1.internal
 
 [zabbix]
-zabbix.ru-central1-b.internal
+zabbix.ru-central1.internal
 
-[elastic_kibana]
-elastic-kibana.ru-central1-b.internal
+[elastic]
+elastic-vm.ru-central1.internal
+
+[kibana]
+kibana-vm.ru-central1.internal
 
 [web_srv:children]
 nginx_a
 nginx_b
+
+[log:children]
+elastic
+kibana

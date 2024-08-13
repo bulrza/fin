@@ -17,6 +17,7 @@ write_files:
 
       apt update
       apt -y install software-properties-common git
+      sleep 60s
       add-apt-repository --yes --update ppa:ansible/ansible
       apt -y install ansible
     defer: true

@@ -21,8 +21,10 @@ resource "yandex_alb_backend_group" "alb_backend_group" {
     target_group_ids = ["${yandex_alb_target_group.alb_target_group.id}"]
         
     healthcheck {
-      timeout = "1s"
-      interval = "1s"
+      timeout = "10s"
+      interval = "2s"
+      healthy_threshold   = 10
+      unhealthy_threshold = 15
       http_healthcheck {
         path  = "/"
       }
@@ -52,13 +54,10 @@ resource "yandex_alb_load_balancer" "alb_balancer" {
   name        = "alb-balancer"
 
   network_id  = yandex_vpc_network.default.id
+  security_group_ids = [yandex_vpc_security_group.alb_balancer.id, yandex_vpc_security_group.sg_internal.id]
   
   allocation_policy {
-    location {
-      zone_id   = "ru-central1-a"
-      subnet_id = yandex_vpc_subnet.subnet_a.id 
-    }
-    location {
+      location {
       zone_id   = "ru-central1-b"
       subnet_id = yandex_vpc_subnet.subnet_b.id 
     }

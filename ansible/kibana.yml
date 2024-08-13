@@ -1,0 +1,26 @@
+---
+- name: Kibana
+  hosts: kibana
+  become: true
+  vars:
+    elastic_host: elastic-vm.ru-central1.internal:9200
+  tasks:
+
+  - name: install kibana
+    apt:
+      deb: "https://mirror.yandex.ru/mirrors/elastic/7/pool/main/k/kibana/kibana-7.17.14-amd64.deb"
+
+  - name: kibana cfg
+    template:
+      src: /home/ubuntu/ansible/kibana.j2
+      dest: /etc/kibana/kibana.yml
+
+  - name: daemon_reload
+    systemd:
+      daemon_reload: true
+
+  - name:  service enable
+    service:
+      name: kibana
+      state: restarted
+      enabled: yes
