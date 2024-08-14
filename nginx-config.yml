@@ -19,6 +19,7 @@ write_files:
       apt-get install -y nginx
       service nginx start
       sed -i -- "s/nginx/Yandex Cloud - ${HOSTNAME}/" /var/www/html/index.nginx-debian.html
+      sed -i "/server_name _;/a\ \n        location = /basic_status {\n        stub_status;\n        access_log off;\n        allow 127.0.0.1;\n        deny all;\n        }" /etc/nginx/sites-available/default
     defer: true
 runcmd:
   - ["/usr/local/etc/startup.sh"]

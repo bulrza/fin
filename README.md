@@ -98,7 +98,7 @@ $Env:YC_CLOUD_ID=$(yc config get cloud-id)
 $Env:YC_FOLDER_ID=$(yc config get folder-id)
 ```
 Далее проверим конфигурацию **terraform** командой `terraform validate`, просмотрим план `terraform plan` и если всё в порядке применяем конфигурацию командой `terraform apply`
-В результате выполнения должны получить в консоль вывод outputs содержащий ip-адреса создаваемых серверов: 
+В результате выполнения должны получить в консоль вывод outputs содержащий ip-адреса создаваемых серверов:  
 ![Outputs.png](https://github.com/bulrza/fin/blob/main/img/Outputs.png)
 В консоли управления Yandex Cloud проверяем созданные ресурсы:  
 ![Resourses.png](https://github.com/bulrza/fin/blob/main/img/Resourses.png)
@@ -121,7 +121,7 @@ $Env:YC_FOLDER_ID=$(yc config get folder-id)
 ![router_1.png](https://github.com/bulrza/fin/blob/main/img/router_1.png)
 ![map_1.png](https://github.com/bulrza/fin/blob/main/img/map_1.png)
 Поскольку специальных требований к сайту нет, установка **nginx** на сервера и изменение в страницу так же выполняются при помощи **terraform**  
-Таким образом можно сразу проверить работу балансировщика.
+Таким образом можно сразу проверить работу балансировщика.  
 Перейдем по публичному IP-адресу балансировщика и обновим страницу, по изменению имени вэб-сервера видна работа балансировщика:  
 ![site_1.png](https://github.com/bulrza/fin/blob/main/img/site_1.png)
 ![site_2.png](https://github.com/bulrza/fin/blob/main/img/site_2.png)
@@ -135,26 +135,29 @@ $Env:YC_FOLDER_ID=$(yc config get folder-id)
 scp C:\Users\Bulushkin\.ssh\id_rsa ubuntu@89.169.171.215:/home/ubuntu/.ssh/id_rsa
 ssh -i C:\Users\Bulushkin\.ssh\id_rsa ubuntu@89.169.171.215 chmod 600 /home/ubuntu/.ssh/id_rsa
 ```
-Где IP-адрес будет публичный (NAT) адрес машины bastion-ansible полученный в outputs
-Далее надо записать на сервер конфигурационные файлы ansible, для чего можно использовать **git** (он уже установлен на сервер).  
-Поскольку у меня есть локальная копия репозитория git, я просто скопирую папку командой `scp -r 'C:\Users\Bulushkin\Documents\terraform test\diploma-fin\ansible' ubuntu@89.169.171.215:/home/ubuntu/`
-После этого соединяемся по ssh с данным сервером: `ssh -i C:\Users\Bulushkin\.ssh\id_rsa ubuntu@89.169.171.215`
-Перейдём в папку ansible и протестируем доступность хостов с помощью команды `ansible all -m ping`
-![ansible_ping.png](https://github.com/bulrza/fin/blob/main/img/ansible_ping.png)
+Где IP-адрес будет публичный (NAT) адрес машины bastion-ansible полученный в outputs  
+Далее надо записать на сервер конфигурационные файлы ansible, для чего можно использовать **git** для загрузки репозитория с github (пакет git уже установлен на сервер с помощью terraform).  
+Поскольку у меня есть локальная копия репозитория git, я просто скопирую папку командой  
+`scp -r 'C:\Users\Bulushkin\Documents\terraform test\diploma-fin\ansible' ubuntu@89.169.171.215:/home/ubuntu/`  
+После этого соединяемся по ssh с данным сервером: `ssh -i C:\Users\Bulushkin\.ssh\id_rsa ubuntu@89.169.171.215`  
+Перейдём в папку ansible и протестируем доступность хостов с помощью команды `ansible all -m ping`  
+![ansible_ping.png](https://github.com/bulrza/fin/blob/main/img/ansible_ping.png)  
 Далее поочередно выполняем плэйбуки:  
 Для настройки сервера **Zabbix** `ansible-playbook zabbix.yml`
-![zabbix_1.png](https://github.com/bulrza/fin/blob/main/img/zabbix_1.png)
+![zabbix_1.png](https://github.com/bulrza/fin/blob/main/img/zabbix_1.png)  
 Для установки **zabbix-agent** на все сервера `ansible-playbook zabbix_agent.yml`
-![zabbix_agent_1.png](https://github.com/bulrza/fin/blob/main/img/zabbix_agent_1.png)
+![zabbix_agent_1.png](https://github.com/bulrza/fin/blob/main/img/zabbix_agent_1.png)  
 Для настройки сервера **elasticsearch** `ansible-playbook elastic.yml`
-![elastic_1.png](https://github.com/bulrza/fin/blob/main/img/elastic_1.png)
+![elastic_1.png](https://github.com/bulrza/fin/blob/main/img/elastic_1.png)  
 Для настройки сервера **kibana** `ansible-playbook kibana.yml`
-![kibana_1.png](https://github.com/bulrza/fin/blob/main/img/kibana_1.png)
+![kibana_1.png](https://github.com/bulrza/fin/blob/main/img/kibana_1.png)  
 Для установки **filebeat** на вэб-сервера `ansible-playbook filebeat.yml`
-![filebeat_1.png](https://github.com/bulrza/fin/blob/main/img/filebeat_1.png)
-Дальнейшая настройка будет осуществляться через вэб интерфейсы сервера Zabbix и Kibana
+![filebeat_1.png](https://github.com/bulrza/fin/blob/main/img/filebeat_1.png)  
+Дальнейшая настройка будет осуществляться через вэб интерфейсы сервера Zabbix и Kibana  
 Ссылка на вэб интерфейс Zabbix:
-[Zabbix](http://89.169.175.236/zabbix)
-Логин: Admin Пароль: zabbix
+[Zabbix](http://89.169.175.236/zabbix)  
+Логин: Admin Пароль: zabbix  
+Настраиваем hosts и Dashboard:  
+![zabbix_2.png](https://github.com/bulrza/fin/blob/main/img/zabbix_2.png)  
 Ссылка на вэб интерфейс Kibana:
-[Kibana](http://89.169.161.36:5601/)
+[Kibana](http://89.169.161.36:5601/)  

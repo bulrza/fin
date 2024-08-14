@@ -1,6 +1,6 @@
 ---
 - name: Zabbix Agent Install
-  hosts: web_srv,log #all
+  hosts: web_srv,log,bastion_ansible #all
   become: true
   vars:
     zabbix_server: zabbix.ru-central1.internal
