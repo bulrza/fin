@@ -161,3 +161,5 @@ ssh -i C:\Users\Bulushkin\.ssh\id_rsa ubuntu@89.169.171.215 chmod 600 /home/ubun
 ![zabbix_2.png](https://github.com/bulrza/fin/blob/main/img/zabbix_2.png)  
 Ссылка на вэб интерфейс Kibana:
 [Kibana](http://89.169.161.36:5601/)  
+Проверяем в **Kibana** filebeat-ы успешно доставляют логи в **Elasticsearch**:  
+![kibana_2.png](https://github.com/bulrza/fin/blob/main/img/kibana_2.png)
